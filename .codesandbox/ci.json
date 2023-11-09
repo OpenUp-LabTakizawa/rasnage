@@ -1,8 +1,8 @@
 {
   "publishDirectory": {
-    "react": "build/node_modules/react",
-    "react-dom": "build/node_modules/react-dom",
-    "next": "build/node_modules/next"  
+    "react": "node_modules/react",
+    "react-dom": "node_modules/react-dom",
+    "next": "node_modules/next"  
   },
-  "sandboxes": ["new", "vanilla"]
+  "sandboxes": ["new"]
 }
