@@ -4,6 +4,5 @@
     "react-dom": "build/node_modules/react-dom",
     "next": "build/node_modules/next"  
   },
-  "sandboxes": ["new", "vanilla"],
-  "node": "20"
+  "sandboxes": ["new", "vanilla"]
 }
