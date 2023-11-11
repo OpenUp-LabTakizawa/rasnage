@@ -20,7 +20,7 @@ on:
   
 jobs:
   build:
-    name: deploy
+    name: push
     runs-on: ubuntu-latest
 
     steps:
@@ -37,7 +37,6 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v5
         with:
-          context: .
           push: true
           tags: openup/rasnage:latest
           cache-from: type=registry,ref=openup/rasnage:latest
