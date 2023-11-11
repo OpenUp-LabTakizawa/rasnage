@@ -16,17 +16,6 @@ on:
       - "tailwind.config.ts"
       - "tsconfig.json"
       - "yarn.lock"
-  pull_request:
-    branches: [ "main" ]
-    paths:
-      - "app/**"
-      - "public/**"
-      - "next.config.js"
-      - "package.json"
-      - "postcss.config.js"
-      - "tailwind.config.ts"
-      - "tsconfig.json"
-      - "yarn.lock"
   workflow_dispatch:
   
 jobs:
