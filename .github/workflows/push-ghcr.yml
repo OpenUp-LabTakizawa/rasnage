@@ -17,15 +17,15 @@ on:
       - "tsconfig.json"
       - "yarn.lock"
   workflow_dispatch:
+
+env:
+  REGISTRY: ghcr.io
   
 jobs:
   build:
     name: push
     runs-on: ubuntu-latest
-    outputs:
-      failing_tests: ${{ steps.test.outputs.failing_tests }}
-      failing_tests_count: ${{ steps.test.outputs.failing_tests_count }}
-    
+      
     steps:
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
@@ -34,13 +34,19 @@ jobs:
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v3
         with:
-          registry: ghcr.io
+          registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Docker meta
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY }}/${{ github.repository }}
       - name: Build and push
         uses: docker/build-push-action@v5
         with:
           push: true
-          tags: openup/rasnage:latest
-          cache-from: type=registry,ref=openup/rasnage:latest
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=registry,ref=${{ github.repository }}:latest
           cache-to: type=inline
