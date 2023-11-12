@@ -7,15 +7,7 @@ concurrency:
 on:
   push:
     branches: [ "main" ]
-    paths:
-      - "app/**"
-      - "public/**"
-      - "next.config.js"
-      - "package.json"
-      - "postcss.config.js"
-      - "tailwind.config.ts"
-      - "tsconfig.json"
-      - "yarn.lock"
+    tags: [ 'v*' ]
   workflow_dispatch:
 
 env:
