@@ -1,4 +1,4 @@
 FROM oven/bun
 WORKDIR /home/bun/app
 COPY . .
-RUN bun i && bun build
+RUN bun i
