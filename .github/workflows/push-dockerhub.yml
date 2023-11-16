@@ -42,9 +42,6 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_USER }}
           password: ${{ secrets.DOCKER_PAT }}
-      - name: Convert uppercase to lowercase
-        run: |
-          echo "REPOSITORY=${GITHUB_REPOSITORY,,}" >> ${GITHUB_ENV}
       - name: Docker meta
         id: meta
         uses: docker/metadata-action@v5
