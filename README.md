@@ -20,7 +20,7 @@
   </a>
 </p>
 <p align="center">
-  New Raspi Signage System
+  New Raspberry Pi Signage System🦏
 </p>
 
 ## ⚒️ Usage
