@@ -52,7 +52,8 @@ $ bunx @biomejs/biome check --apply-unsafe **
 ```
 
 ## 🆚 VSCode
-[VSCode](https://code.visualstudio.com/) is the recommended IDE for working on this project, as it has been configured.
+
+[Visual Studio Code](https://code.visualstudio.com/) is the recommended IDE for working on this project, as it has been configured.
 
 Once opening, you can run `Extensions: Show Recommended Extensions` to install the recommended extensions for good development is automatically configured.
 
