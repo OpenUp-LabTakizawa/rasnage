@@ -26,7 +26,7 @@
   New Raspberry Pi Signage System🦏
 </p>
 
-## ⚒️ Usage
+## 📃 Usage
 
 To clone and run this application, you'll need [Git](https://git-scm.com) and [Bun](https://bun.sh/) installed on your computer.  
 From your command line:
@@ -57,21 +57,16 @@ $ bunx @biomejs/biome check --apply-unsafe **
 
 Once opening, you can run `Extensions: Show Recommended Extensions` to install the recommended extensions for good development is automatically configured.
 
-## 🤝 Contribute
+## 🫶 Contribute
 
-Here’s how we suggest you go about proposing a change to this project:
+Want to report a bug, contribute some code, or improve the documentation? Excellent!
+Read up on our guidelines for [contributing][contributing] and [Code of Conduct][coc].
+Then check out one of our issues labeled as [help wanted][help] or [good first issue][gfi].
 
-1. [Fork this project][fork] to your account.
-2. [Create a branch][branch] for the change you intend to make.
-3. Make your changes to your fork.
-4. [Send a pull request][pr] from your fork’s branch to our `main` branch.
-
-Using the web-based interface to make changes is fine too, and will help you
-by automatically forking the project and prompting to send a pull request too.
-
-[fork]: https://help.github.com/articles/fork-a-repo/
-[branch]: https://help.github.com/articles/creating-and-deleting-branches-within-your-repository
-[pr]: https://help.github.com/articles/using-pull-requests/
+[contributing]: https://github.com/OpenUp-LabTakizawa/rasnage/blob/main/CONTRIBUTING.md
+[coc]: https://github.com/OpenUp-LabTakizawa/rasnage/blob/main/CODE_OF_CONDUCT.md
+[gfi]: https://github.com/OpenUp-LabTakizawa/rasnage/labels/good%20first%20issue
+[help]: https://github.com/OpenUp-LabTakizawa/rasnage/labels/help%20wanted
 
 ## 📦 Credits
 
@@ -84,7 +79,7 @@ This software uses the following open source packages:
 - [React](https://react.dev/)
 - [Tailwind CSS](https://tailwindcss.com/)
 
-## 📄 License
+## ⚖️ License
 
 The Apache License Version 2.0 (2023) - [OpenUp-LabTakizawa](https://github.com/OpenUp-LabTakizawa).  
 Please have a look at the [LICENSE](https://github.com/OpenUp-LabTakizawa/rasnage/blob/main/LICENSE) for more details.
