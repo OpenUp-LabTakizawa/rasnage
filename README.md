@@ -39,13 +39,13 @@ $ git clone https://github.com/OpenUp-LabTakizawa/rasnage
 $ cd rasnage && bun i
 
 # Develop the app
-$ bun --bun run dev
+$ bun dev
 
 # Build the app
-$ bun --bun run build
+$ bun run build
 
 # Start the app
-$ bun --bun run start
+$ bun start
 
 # Format the app
 $ bunx @biomejs/biome check --apply-unsafe **
