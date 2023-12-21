@@ -41,6 +41,9 @@ $ cd rasnage && bun i
 # Develop the app
 $ bun dev
 
+# Test the app
+$ bun test
+
 # Build the app
 $ bun run build
 
