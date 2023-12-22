@@ -19,17 +19,26 @@ on:
       - "yarn.lock"
   pull_request_target:
     branches: [ main ]
+    paths:
+      - "app/**"
+      - "public/**"
+      - "next.config.js"
+      - "package.json"
+      - "postcss.config.js"
+      - "tailwind.config.ts"
+      - "tsconfig.json"
+      - "yarn.lock"
   workflow_dispatch:
 
 env:
   REGISTRY: docker.io
   IMAGE_NAME: marukome0743/rasnage
-  
+
 jobs:
   build:
     name: push
     runs-on: ubuntu-latest
-      
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
