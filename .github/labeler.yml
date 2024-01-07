@@ -1,3 +1,12 @@
+asset:
+- changed-files:
+  - any-glob-to-any-file: 'public/**'
+ci:
+- changed-files:
+  - any-glob-to-any-file: '.github/**/*.yml'
+config:
+- changed-files:
+  - any-glob-to-any-file: '*config.*'
 content:
 - changed-files:
   - any-glob-to-any-file: 'app/**'
@@ -10,23 +19,14 @@ docker:
 documentation:
 - changed-files:
   - any-glob-to-any-file: '**/*.md'
+enhancement:
+ - head-branch: ['^feature', 'feature', '^enhancement', 'enhancement']
 git:
 - changed-files:
   - any-glob-to-any-file: ['.gitattributes', '.gitignore']
-image:
-- changed-files:
-  - any-glob-to-any-file: 'public/**'
 infrastructure:
 - changed-files:
-  - any-glob-to-any-file: '.eslistrc.json'
-next:
-- changed-files:
-  - any-glob-to-any-file: ['*.config.js', '*.config.ts', 'tsconfig.json']
-ci:
-- changed-files:
-  - any-glob-to-any-file: ['.github/workflows/*.yml', '.github/dependabot.yml']
+  - any-glob-to-any-file: ['.devcontainer/*', '.editorconfig', 'biome.json']
 vscode:
 - changed-files:
   - any-glob-to-any-file: '.vscode/*'
-enhancement:
- - head-branch: ['^feature', 'feature', '^enhancement', 'enhancement']
