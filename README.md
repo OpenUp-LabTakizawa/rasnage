@@ -56,8 +56,8 @@ $ bun run build
 # Start the app
 $ bun start
 
-# Format the app
-$ bunx @biomejs/biome check --apply-unsafe **
+# Format and Lint the files
+$ bunx @biomejs/biome check --apply .
 ```
 
 ## 🆚 VSCode
