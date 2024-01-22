@@ -34,7 +34,7 @@ env:
   GHCR_REPOSITORY: openup-labtakizawa/rasnage
 
 jobs:
-  run:
+  build:
     runs-on: ubuntu-latest
 
     steps:
