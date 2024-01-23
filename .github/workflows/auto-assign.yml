@@ -14,12 +14,16 @@ permissions:
   issues: write
   pull-requests: write
 
+env:
+  REPOSITORY_OWNER: OpenUp-LabTakizawa
+
 jobs:
   run:
     runs-on: ubuntu-latest
 
     steps:
     - name: Auto-assign issue
+      if: github.repository_owner == env.REPOSITORY_OWNER
       uses: pozil/auto-assign-issue@v1
       with:
           assignees: HaradaTakayuki,kazutan1230,Marukome0743,tanePON
