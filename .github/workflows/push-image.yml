@@ -6,7 +6,6 @@ concurrency:
 
 on:
   push:
-    branches: [ main ]
     tags: [ v*.*.* ]
     paths:
       - "app/**"
@@ -16,7 +15,6 @@ on:
       - "yarn.lock"
       - "*config.*"
   pull_request_target:
-    branches: [ main ]
     paths:
       - "app/**"
       - "public/**"
