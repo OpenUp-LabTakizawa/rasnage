@@ -6,7 +6,6 @@
 .gitignore
 .next
 .vscode
-app/**/*.test.tsx
 biome.json
 bunfig.toml
 CODE_OF_CONDUCT.md
