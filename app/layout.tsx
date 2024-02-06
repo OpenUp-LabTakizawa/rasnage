@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { Sawarabi_Gothic } from 'next/font/google'
+import type React from 'react'
 import './globals.css'
 
 const inter = Sawarabi_Gothic({
