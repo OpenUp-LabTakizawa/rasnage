@@ -7,10 +7,8 @@
 .next
 .vscode
 biome.json
-bunfig.toml
 CODE_OF_CONDUCT.md
 CONTRIBUTING.md
-happydom.ts
 LICENSE
 next-env.d.ts
 node_modules
