@@ -53,8 +53,5 @@ jobs:
       - name: Install dependencies
         run: yarn --frozen-lockfile
 
-      - name: Install sharp module for ubuntu
-        run: npm install --os=linux --cpu=x64 sharp
-
       - name: Build app
         run: npm run build --if-present
