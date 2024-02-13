@@ -11,7 +11,10 @@
   },
   "linter": {
     "rules": {
-      "all": true
+      "all": true,
+      "style": {
+        "noDefaultExport": "off"
+      }
     }
   },
   "formatter": {
