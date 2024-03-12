@@ -3,7 +3,7 @@ import { Sawarabi_Gothic } from 'next/font/google'
 import type React from 'react'
 import './globals.css'
 
-const inter = Sawarabi_Gothic({
+const sawarabiGothic = Sawarabi_Gothic({
   subsets: ['latin'],
   weight: '400',
 })
@@ -20,7 +20,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ja">
-      <body className={inter.className}>{children}</body>
+      <body className={sawarabiGothic.className}>{children}</body>
     </html>
   )
 }
