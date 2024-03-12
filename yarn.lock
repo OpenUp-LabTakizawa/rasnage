@@ -91,7 +91,7 @@
   resolved "https://registry.npmjs.org/@biomejs/cli-win32-x64/-/cli-win32-x64-1.6.0.tgz"
   integrity sha512-sXBcXIOGuG8/XcHqmnkhLIs0oy6Dp+TkH4Alr4WH/P8mNsp5GcStI/ZwbEiEoxA0P3Fi+oUppQ6srxaY2rSCHg==
 
-"@happy-dom/global-registrator@^13.7.3":
+"@happy-dom/global-registrator@^13.7.7":
   version "13.7.7"
   resolved "https://registry.npmjs.org/@happy-dom/global-registrator/-/global-registrator-13.7.7.tgz"
   integrity sha512-upQjtD+kwZfsWwdbTPUGN2Qma9NjOZTLQ96AVs07R0xpGq9wj6fDAU3aFxEBV0+U3SHs6olJhmxKUpbvMDh44Q==
@@ -266,7 +266,7 @@
   dependencies:
     bun-types "1.0.29"
 
-"@types/node@*", "@types/node@^20.11.25", "@types/node@~20.11.3":
+"@types/node@*", "@types/node@^20.11.26", "@types/node@~20.11.3":
   version "20.11.26"
   resolved "https://registry.npmjs.org/@types/node/-/node-20.11.26.tgz"
   integrity sha512-YwOMmyhNnAWijOBQweOJnQPl068Oqd4K3OFbTc6AHJwzweUwwWG3GIFY74OKks2PJUDkQPeddOQES9mLn1CTEQ==
