@@ -15,8 +15,8 @@
     "react-dom": "canary"
   },
   "devDependencies": {
-    "@biomejs/biome": "^1.6.2",
-    "@happy-dom/global-registrator": "^14.3.6",
+    "@biomejs/biome": "^1.6.3",
+    "@happy-dom/global-registrator": "^14.3.7",
     "@testing-library/react": "^14.2.2",
     "@types/bun": "^1.0.10",
     "@types/node": "^20.11.30",
