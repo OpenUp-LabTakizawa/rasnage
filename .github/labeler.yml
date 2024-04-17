@@ -28,7 +28,7 @@ docker:
   - any-glob-to-any-file: ['.gitattributes', '.gitignore']
 🧰infrastructure:
 - changed-files:
-  - any-glob-to-any-file: ['.devcontainer/*', '.editorconfig', 'biome.json', 'bunfig.toml']
+  - any-glob-to-any-file: ['.devcontainer/*', '.editorconfig', '.env*', 'biome.json', 'bunfig.toml']
 ✅test:
 - changed-files:
   - any-glob-to-any-file: ['happydom.ts', 'app/**/*.test.tsx']
