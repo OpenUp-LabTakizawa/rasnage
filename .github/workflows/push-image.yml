@@ -104,7 +104,7 @@ jobs:
           context: .
           platforms: ${{ env.IS_PUSH && 'linux/amd64,linux/arm64' || 'linux/amd64' }}
           push: ${{ env.IS_PUSH }}
-          load: ${{ !env.IS_PUSH }}
+          load: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           annotations: ${{ steps.meta.outputs.annotations }}
@@ -114,7 +114,6 @@ jobs:
 
       - name: Check Docker Image
         run: |
-          docker pull --platform linux/arm64 ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}:${{ steps.meta.outputs.version }}
           docker image inspect ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}:${{ steps.meta.outputs.version }}
 
       # - name: Update AWS Lambda Function
