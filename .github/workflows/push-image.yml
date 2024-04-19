@@ -112,6 +112,10 @@ jobs:
           cache-to: type=gha,mode=max
           provenance: false
 
+      - name: Check Docker Image
+        run: |
+          docker image inspect ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}:${{ steps.meta.outputs.version }}
+
       # - name: Update AWS Lambda Function
       #   if: env.IS_PUSH
       #   run: |
