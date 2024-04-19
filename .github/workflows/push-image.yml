@@ -94,7 +94,7 @@ jobs:
           tags: |
             type=ref,event=tag
             type=ref,event=pr,prefix=pr-
-            type=raw,value=canary,enable=${{ github.event_name == 'push' || inputs.push }}
+            type=raw,value=canary,enable=${{ inputs.push || github.event_name == 'push' }}
 
       - name: Build and push
         uses: docker/build-push-action@v5

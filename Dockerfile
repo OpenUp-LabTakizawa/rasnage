@@ -1,3 +1,4 @@
+# syntax=docker/dockerfile:labs
 FROM oven/bun:canary as base
 WORKDIR /usr/src/app
 
