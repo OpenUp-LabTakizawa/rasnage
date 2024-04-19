@@ -110,7 +110,7 @@ jobs:
           annotations: ${{ steps.meta.outputs.annotations }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
-          outputs: type=registry,\"name=${{ env.REPOSITORY }},${{ env.GHCR_REGISTRY }}/${{ env.GHCR_REPOSITORY }},${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}\",push-by-digest=true,name-canonical=true
+          outputs: type=registry,name=${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }},push-by-digest=true,name-canonical=true
           provenance: false
 
       # - name: Update AWS Lambda Function
