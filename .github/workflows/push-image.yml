@@ -114,6 +114,7 @@ jobs:
 
       - name: Check Docker Image
         run: |
+          docker pull --platform linux/arm64 ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}:${{ steps.meta.outputs.version }}
           docker image inspect ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}:${{ steps.meta.outputs.version }}
 
       # - name: Update AWS Lambda Function
