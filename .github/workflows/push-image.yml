@@ -35,7 +35,6 @@ env:
   GHCR_REGISTRY: ghcr.io
   GHCR_REPOSITORY: openup-labtakizawa/rasnage
   AWS_REGION: ap-northeast-1
-  ECR_REGISTRY: 544280698279.dkr.ecr.ap-northeast-1.amazonaws.com
   ECR_REPOSITORY: rasnage
   LAMBDA_FUNCTION_NAME: rasnage
   IS_PUSH: ${{ inputs.push || github.event_name == 'push' && github.repository_owner == 'OpenUp-LabTakizawa' && github.ref_name == 'main' }}
@@ -79,9 +78,8 @@ jobs:
 
       - name: Login to Amazon ECR
         if: env.IS_PUSH
-        uses: docker/login-action@v3
-        with:
-          registry: ${{ env.ECR_REGISTRY }}
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v2
 
       - name: Docker Meta
         id: meta
@@ -90,7 +88,6 @@ jobs:
           images: |
             ${{ env.REPOSITORY }}
             ${{ env.GHCR_REGISTRY }}/${{ env.GHCR_REPOSITORY }}
-            ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}
           tags: |
             type=ref,event=tag
             type=ref,event=pr,prefix=pr-
@@ -104,7 +101,7 @@ jobs:
           context: .
           platforms: ${{ env.IS_PUSH && 'linux/amd64,linux/arm64' || 'linux/amd64' }}
           push: ${{ env.IS_PUSH }}
-          load: true
+          load: ${{ !env.IS_PUSH }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           annotations: ${{ steps.meta.outputs.annotations }}
@@ -112,15 +109,16 @@ jobs:
           cache-to: type=gha,mode=max
           provenance: false
 
-      - name: Check Docker Image
+      - name: Build and Push Image to Amazon ECR
+        if: env.IS_PUSH
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          IMAGE_TAG: ${{ github.sha }}
         run: |
-          docker image inspect ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}:${{ steps.meta.outputs.version }}
-
-      # - name: Update AWS Lambda Function
-      #   if: env.IS_PUSH
-      #   run: |
-      #     aws lambda update-function-code --function-name ${{ env.LAMBDA_FUNCTION_NAME }} \
-      #     --image-uri ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}:${{ steps.meta.outputs.version }}
+          docker build --platform linux/arm64 -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+          aws lambda update-function-code --function-name $LAMBDA_FUNCTION_NAME \
+          --architectures arm64 --image-uri $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
 
       - name: Docker Scout
         if: github.repository_owner == 'OpenUp-LabTakizawa' && github.event_name == 'pull_request_target'
