@@ -24,13 +24,12 @@ on:
   workflow_dispatch:
     inputs:
       push:
-        description: 'Push image'
+        description: 'whether to push image'
         required: true
         default: false
         type: boolean
 
 env:
-  REPOSITORY_OWNER: OpenUp-LabTakizawa
   REGISTRY: docker.io
   REPOSITORY: marukome0743/rasnage
   GHCR_REGISTRY: ghcr.io
@@ -39,6 +38,7 @@ env:
   ECR_REGISTRY: 544280698279.dkr.ecr.ap-northeast-1.amazonaws.com
   ECR_REPOSITORY: rasnage
   LAMBDA_FUNCTION_NAME: rasnage
+  IS_PUSH: ${{ inputs.push || github.event_name == 'push' && github.repository_owner == 'OpenUp-LabTakizawa' && github.ref_name == 'main' }}
 
 jobs:
   build:
@@ -55,14 +55,14 @@ jobs:
         uses: docker/setup-buildx-action@v3
 
       - name: Login to Docker Hub
-        if: github.repository_owner == env.REPOSITORY_OWNER
+        if: github.repository_owner == 'OpenUp-LabTakizawa'
         uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKER_USER }}
           password: ${{ secrets.DOCKER_PAT }}
 
       - name: Login to GitHub Container Registry
-        if: github.repository_owner == env.REPOSITORY_OWNER
+        if: env.IS_PUSH
         uses: docker/login-action@v3
         with:
           registry: ${{ env.GHCR_REGISTRY }}
@@ -70,7 +70,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Configure AWS credentials
-        if: github.repository_owner == env.REPOSITORY_OWNER
+        if: env.IS_PUSH
         uses: aws-actions/configure-aws-credentials@v4
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
@@ -78,12 +78,12 @@ jobs:
           aws-region: ${{ env.AWS_REGION }}
 
       - name: Login to Amazon ECR
-        if: github.repository_owner == env.REPOSITORY_OWNER
+        if: env.IS_PUSH
         uses: docker/login-action@v3
         with:
           registry: ${{ env.ECR_REGISTRY }}
 
-      - name: Docker meta
+      - name: Docker Meta
         id: meta
         uses: docker/metadata-action@v5
         with:
@@ -94,14 +94,14 @@ jobs:
           tags: |
             type=ref,event=tag
             type=ref,event=pr,prefix=pr-
-            type=raw,value=canary,enable=${{ inputs.push || github.event_name == 'push' }}
+            type=raw,value=canary,enable=${{ env.IS_PUSH }}
 
-      - name: Build and push
+      - name: Build and Push
         uses: docker/build-push-action@v5
         with:
           context: .
-          platforms: ${{ github.event_name == 'push' && 'linux/amd64,linux/arm64' || 'linux/amd64' }}
-          push: ${{ inputs.push || github.event_name == 'push' && github.ref_name == 'main' && github.repository_owner == env.REPOSITORY_OWNER }}
+          platforms: ${{ env.IS_PUSH && 'linux/amd64,linux/arm64' || 'linux/amd64' }}
+          push: ${{ env.IS_PUSH }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=registry,ref=${{ env.REPOSITORY }}:canary
@@ -109,14 +109,14 @@ jobs:
           outputs: ${{ github.event_name == 'push' && 'type=image,name=target,annotation-index.org.opencontainers.image.description=rasnage multi-arch image' || 'type=docker' }}
           provenance: false
 
-      - name: Update lambda function
-        if: inputs.push || github.event_name == 'push' && github.ref_name == 'main' && github.repository_owner == env.REPOSITORY_OWNER
+      - name: Update AWS Lambda Function
+        if: env.IS_PUSH
         run: |
           aws lambda update-function-code --function-name ${{ env.LAMBDA_FUNCTION_NAME }} \
           --image-uri ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}:${{ steps.meta.outputs.version }}
 
       - name: Docker Scout
-        if: github.repository_owner == env.REPOSITORY_OWNER && github.event_name == 'pull_request_target'
+        if: github.repository_owner == 'OpenUp-LabTakizawa' && github.event_name == 'pull_request_target'
         uses: docker/scout-action@v1
         with:
           command: compare
