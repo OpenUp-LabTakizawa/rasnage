@@ -104,9 +104,10 @@ jobs:
           push: ${{ env.IS_PUSH }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+          annotations: ${{ steps.meta.outputs.annotations }}
           cache-from: type=registry,ref=${{ env.REPOSITORY }}:canary
           cache-to: type=inline
-          outputs: ${{ github.event_name == 'push' && 'type=image,name=target,annotation-index.org.opencontainers.image.description=rasnage multi-arch image' || 'type=docker' }}
+          outputs: ${{ github.event_name == 'push' && 'type=registry' || 'type=docker' }}
           provenance: false
 
       - name: Update AWS Lambda Function
