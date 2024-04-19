@@ -107,7 +107,7 @@ jobs:
           annotations: ${{ steps.meta.outputs.annotations }}
           cache-from: type=registry,ref=${{ env.REPOSITORY }}:canary
           cache-to: type=inline
-          outputs: ${{ github.event_name == 'push' && 'type=registry' || 'type=docker' }}
+          outputs: ${{ env.IS_PUSH && 'type=registry' || 'type=docker' }}
           provenance: false
 
       - name: Update AWS Lambda Function
