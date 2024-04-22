@@ -13,10 +13,10 @@ on:
 env:
   GH_TOKEN: ${{ github.token }}
   MEMBERS: |
-    HaradaTakayuki-
-    kazutan1230-
-    Marukome0743-
-    tanePON-
+    HaradaTakayuki
+    kazutan1230
+    Marukome0743
+    tanePON
 
 jobs:
   assign:
@@ -29,7 +29,7 @@ jobs:
           echo "$MEMBERS" |
             tail -n +2 |
             shuf -n 1 |
-            xargs gh issue edit ${{ github.event.issue.number }} --add-assignee
+            xargs gh issue edit ${{ github.event.issue.number }} --repo ${{ github.repository }} --add-assignee
 
       - name: Assign Pull Request
         if: github.event_name == 'pull_request' && toJSON(github.event.pull_request.assignees) == '[]'
@@ -37,4 +37,4 @@ jobs:
           echo "$MEMBERS" |
             tail -n +2 |
             shuf -n 1 |
-            xargs gh pr edit ${{ github.event.pull_request.number }} --add-assignee
+            xargs gh pr edit ${{ github.event.pull_request.number }} --repo ${{ github.repository }} --add-assignee
