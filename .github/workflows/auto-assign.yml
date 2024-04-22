@@ -27,7 +27,6 @@ jobs:
         if: github.event_name == 'issues' && toJSON(github.event.issue.assignees) == '[]'
         run: |
           echo "$MEMBERS" |
-            tail -n +1 |
             shuf -n 1 |
             xargs gh issue edit ${{ github.event.issue.number }} --repo ${{ github.repository }} --add-assignee
 
