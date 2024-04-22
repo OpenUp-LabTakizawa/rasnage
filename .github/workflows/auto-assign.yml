@@ -12,6 +12,7 @@ on:
 
 permissions:
   pull-requests: write
+  repository-projects: read
 
 env:
   GH_TOKEN: ${{ github.token }}
