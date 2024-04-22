@@ -10,6 +10,9 @@ on:
       - opened
       - reopened
 
+permissions:
+  pull-requests: write
+
 env:
   GH_TOKEN: ${{ github.token }}
   MEMBERS: |
@@ -37,4 +40,4 @@ jobs:
           echo "$MEMBERS" |
             tail -n +2 |
             shuf -n 1 |
-            xargs gh pr edit ${{ github.event.number }} --repo ${{ github.repository }} --add-assignee
+            xargs gh pr edit ${{ github.event.pull_request.number }} --repo ${{ github.repository }} --add-assignee
