@@ -26,7 +26,7 @@ jobs:
       - name: Assign Issue
         if: github.event_name == 'issues' && toJSON(github.event.issue.assignees) == '[]'
         run: |
-          echo ${{ env.MEMBERS }} |
+          echo "$MEMBERS" |
             tail -n +2 |
             shuf -n 1 |
             xargs gh issue edit ${{ github.event.issue.number }} --repo ${{ github.repository }} --add-assignee
@@ -34,7 +34,7 @@ jobs:
       - name: Assign Pull Request
         if: github.event_name == 'pull_request_target' && toJSON(github.event.pull_request.assignees) == '[]'
         run: |
-          echo ${{ env.MEMBERS }} |
+          echo "$MEMBERS" |
             tail -n +2 |
             shuf -n 1 |
             xargs gh pr edit ${{ github.event.pull_request.number }} --repo ${{ github.repository }} --add-assignee
