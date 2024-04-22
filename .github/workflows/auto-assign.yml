@@ -23,18 +23,17 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Select a Assignee
+        run: |
+          echo $MEMBERS |
+            shuf -n 1 |
+            xargs echo "ASSIGNEE=" >> $GITHUB_ENV
+          echo "Assignee: ${{ env.ASSIGNEE }}"
+
       - name: Assign Issue
         if: github.event_name == 'issues' && toJSON(github.event.issue.assignees) == '[]'
-        run: |
-          echo "$MEMBERS" |
-            tail -n +2 |
-            shuf -n 1 |
-            xargs gh issue edit ${{ github.event.issue.number }} --repo ${{ github.repository }} --add-assignee
+        run: gh issue edit ${{ github.event.issue.number }} --add-assignee ${{ env.ASSIGNEE }} --repo ${{ github.repository }}
 
       - name: Assign Pull Request
         if: github.event_name == 'pull_request' && toJSON(github.event.pull_request.assignees) == '[]'
-        run: |
-          echo "$MEMBERS" |
-            tail -n +2 |
-            shuf -n 1 |
-            xargs gh pr edit ${{ github.event.pull_request.number }} --repo ${{ github.repository }} --add-assignee
+        run: gh pr edit ${{ github.event.pull_request.number }} --add-assignee ${{ env.ASSIGNEE }} --repo ${{ github.repository }}
