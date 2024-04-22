@@ -26,8 +26,9 @@ jobs:
       - name: Select a Assignee
         run: |
           echo $MEMBERS |
+            tail -n +2 |
             shuf -n 1 |
-            xargs echo "ASSIGNEE=" >> $GITHUB_ENV
+            xargs echo "ASSIGNEE=" | tr -d ' ' >> $GITHUB_ENV
           echo "Assignee: ${{ env.ASSIGNEE }}"
 
       - name: Assign Issue
