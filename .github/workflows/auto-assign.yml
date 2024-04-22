@@ -5,14 +5,10 @@ on:
     types:
       - opened
       - reopened
-  pull_request:
+  pull_request_target:
     types:
       - opened
       - reopened
-
-permissions:
-  pull-requests: write
-  repository-projects: read
 
 env:
   GH_TOKEN: ${{ github.token }}
@@ -36,7 +32,7 @@ jobs:
             xargs gh issue edit ${{ github.event.issue.number }} --repo ${{ github.repository }} --add-assignee
 
       - name: Assign Pull Request
-        if: github.event_name == 'pull_request' && toJSON(github.event.pull_request.assignees) == '[]'
+        if: github.event_name == 'pull_request_target' && toJSON(github.event.pull_request.assignees) == '[]'
         run: |
           echo "$MEMBERS" |
             tail -n +2 |
