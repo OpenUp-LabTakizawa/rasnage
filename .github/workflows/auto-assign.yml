@@ -1,26 +1,40 @@
-name: Auto Assign Issue
+name: Auto Assign
 
 on:
   issues:
-    types: opened
+    types:
+      - opened
+      - reopened
+  pull_request:
+    types:
+      - opened
+      - reopened
+
+env:
+  GH_TOKEN: ${{ github.token }}
+  MEMBERS: |
+    HaradaTakayuki-
+    kazutan1230-
+    Marukome0743-
+    tanePON-
 
 jobs:
-  random-assign:
+  assign:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Assign Random Member
-        if: ${{ toJSON(github.event.issue.assignees) == '[]' }}
-        env:
-          NUMBER: ${{ github.event.issue.number }}
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          MEMBERS: |
-            HaradaTakayuki
-            kazutan1230
-            Marukome0743
-            tanePON
+      - name: Assign Issue
+        if: github.event_name == 'issues' && toJSON(github.event.issue.assignees) == '[]'
         run: |
           echo "$MEMBERS" |
             tail -n +2 |
             shuf -n 1 |
-            xargs gh issue edit $NUMBER --add-assignee
+            xargs gh issue edit ${{ github.event.issue.number }} --add-assignee
+
+      - name: Assign Pull Request
+        if: github.event_name == 'pull_request' && toJSON(github.event.pull_request.assignees) == '[]'
+        run: |
+          echo "$MEMBERS" |
+            tail -n +2 |
+            shuf -n 1 |
+            xargs gh pr edit ${{ github.event.pull_request.number }} --add-assignee
