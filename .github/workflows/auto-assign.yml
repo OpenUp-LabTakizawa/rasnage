@@ -34,6 +34,5 @@ jobs:
         if: github.event_name == 'pull_request_target' && toJSON(github.event.pull_request.assignees) == '[]'
         run: |
           echo "$MEMBERS" |
-            tail -n +2 |
             shuf -n 1 |
             xargs gh pr edit ${{ github.event.pull_request.number }} --repo ${{ github.repository }} --add-assignee
