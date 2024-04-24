@@ -54,8 +54,6 @@ jobs:
         platforms: linux/arm64
         push: true
         tags: ${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_REPOSITORY }}:${{ github.sha }}
-        cache-from: type=gha
-        cache-to: type=gha,mode=max
         provenance: false
 
     - name: Update Lambda Function
