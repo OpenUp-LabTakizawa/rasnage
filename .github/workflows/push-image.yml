@@ -29,15 +29,16 @@ on:
         default: false
         type: boolean
 
+env:
+  REPOSITORY_OWNER: openup-labtakizawa
+  REPOSITORY: marukome0743/rasnage
+  GHCR_REGISTRY: ghcr.io
+  GHCR_REPOSITORY: openup-labtakizawa/rasnage
+  IS_PUSH: ${{ inputs.push || github.event_name == 'push' && github.repository_owner == 'openup-labtakizawa' && github.ref_name == 'main' }}
+
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-      REPOSITORY_OWNER: openup-labtakizawa
-      REPOSITORY: marukome0743/rasnage
-      GHCR_REGISTRY: ghcr.io
-      GHCR_REPOSITORY: openup-labtakizawa/rasnage
-      IS_PUSH: ${{ inputs.push || github.event_name == 'push' && github.repository_owner == 'openup-labtakizawa' && github.ref_name == 'main' }}
 
     steps:
       - name: Checkout
@@ -100,51 +101,3 @@ jobs:
           image: ${{ env.REPOSITORY }}:${{ steps.meta.outputs.version }}
           to: ${{ env.GHCR_REGISTRY }}/${{ env.GHCR_REPOSITORY }}:canary
           only-severities: critical,high
-
-  lambda:
-    runs-on: ubuntu-latest
-    if: inputs.push || github.event_name == 'push' && github.repository_owner == 'openup-labtakizawa' && github.ref_name == 'main'
-    env:
-      AWS_REGION: ap-northeast-1
-      ECR_REPOSITORY: rasnage
-      LAMBDA_FUNCTION_NAME: rasnage
-
-    steps:
-    - name: Checkout
-      uses: actions/checkout@v4
-
-    - name: Set up QEMU
-      uses: docker/setup-qemu-action@v3
-
-    - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v3
-
-    - name: Configure AWS credentials
-      uses: aws-actions/configure-aws-credentials@v4
-      with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: ${{ env.AWS_REGION }}
-
-    - name: Login to Amazon ECR
-      id: login-ecr
-      uses: aws-actions/amazon-ecr-login@v2
-
-    - name: Build and Push
-      uses: docker/build-push-action@v5
-      with:
-        context: .
-        platforms: linux/arm64
-        push: true
-        tags: ${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_REPOSITORY }}:${{ github.sha }}
-        cache-from: type=gha
-        cache-to: type=gha,mode=max
-        provenance: false
-
-    - name: Update Lambda Function
-      env:
-        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-        IMAGE_TAG: ${{ github.sha }}
-      run: |
-        aws lambda update-function-code --function-name $LAMBDA_FUNCTION_NAME \
-        --architectures arm64 --image-uri $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
