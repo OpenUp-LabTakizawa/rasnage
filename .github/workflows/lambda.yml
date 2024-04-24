@@ -6,6 +6,7 @@ concurrency:
 
 on:
   push:
+    branches: main
     paths:
       - "app/**"
       - "public/**"
@@ -23,7 +24,7 @@ env:
 jobs:
   lambda:
     runs-on: ubuntu-latest
-    if: github.repository_owner == 'openup-labtakizawa' && github.ref_name == 'main'
+    if: github.repository_owner == 'openup-labtakizawa'
 
     steps:
     - name: Checkout
