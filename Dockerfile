@@ -13,7 +13,7 @@ RUN bun test
 RUN bun run build
 
 FROM gcr.io/distroless/nodejs20-debian12:nonroot
-WORKDIR /usr/src/app
+WORKDIR /app
 COPY --from=public.ecr.aws/awsguru/aws-lambda-adapter:0.8.3 /lambda-adapter /opt/extensions/lambda-adapter
 
 COPY --from=builder /usr/src/app/public ./public
