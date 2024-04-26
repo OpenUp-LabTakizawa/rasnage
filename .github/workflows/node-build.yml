@@ -53,8 +53,5 @@ jobs:
       - name: Install sharp
         run: yarn add sharp --ignore-engines
 
-      - name: Install dependencies
-        run: yarn --frozen-lockfile
-
       - name: Build app
         run: npm run build --if-present
