@@ -12,19 +12,21 @@
   "dependencies": {
     "next": "canary",
     "react": "canary",
-    "react-dom": "canary",
-    "sharp": "^0.33.3"
+    "react-dom": "canary"
   },
   "devDependencies": {
     "@biomejs/biome": "^1.7.1",
     "@happy-dom/global-registrator": "^14.7.1",
     "@testing-library/react": "^15.0.4",
     "@types/bun": "^1.1.0",
-    "@types/react": "^18.2.79",
-    "@types/react-dom": "^18.2.25",
+    "@types/react": "^18.3.0",
+    "@types/react-dom": "^18.3.0",
     "postcss": "^8.4.38",
     "tailwindcss": "^3.4.3",
-    "typescript": "^5.4.5"
+    "typescript": "beta"
   },
-  "trustedDependencies": ["@biomejs/biome", "sharp"]
+  "trustedDependencies": ["@biomejs/biome", "sharp"],
+  "optionalDependencies": {
+    "sharp": "^0.33.3"
+  }
 }
