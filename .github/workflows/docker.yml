@@ -40,10 +40,11 @@ jobs:
   build:
     runs-on: ubuntu-latest
     permissions:
+      attestations: write
+      contents: read
       id-token: write
       packages: write
-      contents: read
-      attestations: write
+      pull-requests: write
 
     steps:
       - name: Checkout
