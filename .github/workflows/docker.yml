@@ -65,9 +65,6 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Set TIMESTAMP For Reproducible builds
-        run: echo "TIMESTAMP=$(git log -1 --pretty=%ct)" >> $GITHUB_ENV
-
       - name: Docker Meta
         id: meta
         uses: docker/metadata-action@v5
@@ -95,8 +92,6 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
           provenance: false
-        env:
-          SOURCE_DATE_EPOCH: ${{ env.TIMESTAMP }}
 
       - name: Docker Scout
         if: github.repository_owner == env.REPOSITORY_OWNER && github.event_name == 'pull_request_target'
