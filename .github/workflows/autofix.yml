@@ -24,9 +24,9 @@ jobs:
 
       - name: Delete lock files
         run: rm bun.lockb yarn.lock
-          
+
       - name: Update dependencies
-        run: bun update
+        run: bun update && bun i
 
       - name: Run Biome
         run: bunx biome ci
