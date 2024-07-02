@@ -32,4 +32,4 @@ jobs:
         run: bunx biome ci --reporter=github
 
       - name: Commit
-        uses: autofix-ci/action@v1.3
+        uses: autofix-ci/action@v1.3.1
