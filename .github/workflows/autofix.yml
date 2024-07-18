@@ -22,8 +22,8 @@ jobs:
         with:
           bun-version: canary
 
-      - name: Delete lock files
-        run: rm bun.lockb yarn.lock
+      - name: Delete bun.lockb
+        run: rm bun.lockb
 
       - name: Update dependencies
         run: bun update
