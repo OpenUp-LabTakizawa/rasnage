@@ -5,6 +5,7 @@
     "ghcr.io/devcontainers/features/github-cli:1": {}
   },
   "forwardPorts": [3000],
+  "remoteUser": "root",
   "postCreateCommand": "npm install -g bun && bun i",
   "postStartCommand": "bun dev",
   "customizations": {
