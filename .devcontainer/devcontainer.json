@@ -1,6 +1,6 @@
 {
   "name": "rasnage",
-  "image": "mcr.microsoft.com/devcontainers/typescript-node:dev-20",
+  "image": "mcr.microsoft.com/devcontainers/typescript-node:dev-22",
   "features": {
     "ghcr.io/devcontainers/features/github-cli:1": {}
   },
