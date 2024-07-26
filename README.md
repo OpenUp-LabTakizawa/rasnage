@@ -100,6 +100,7 @@ Then check out one of our issues labeled as [😵‍💫help wanted][help] or [g
 
 This software uses the following open source packages:
 
+- [AWS Lambda Web Adapter](https://github.com/awslabs/aws-lambda-web-adapter)
 - [Biome](https://biomejs.dev/)
 - [Bun](https://bun.sh/)
 - [daisyUI](https://daisyui.com/)
