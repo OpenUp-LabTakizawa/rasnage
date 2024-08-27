@@ -22,9 +22,6 @@ jobs:
         with:
           bun-version: canary
 
-      - name: Delete bun.lockb
-        run: rm bun.lockb
-
       - name: Update dependencies
         run: bun update
 
