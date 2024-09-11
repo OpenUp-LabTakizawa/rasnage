@@ -49,7 +49,7 @@ jobs:
     - name: Get an old ImageTag
       id: get-old-image-tag
       run: |
-        echo "OLD_IMAGE_TAG=$(aws ecr list-images --repository-name $ECR_REPOSITORY /
+        echo "OLD_IMAGE_TAG=$(aws ecr list-images --repository-name $ECR_REPOSITORY \
         --query 'imageIds[0].imageTag' --output text)" >> $GITHUB_OUTPUT
 
     - name: Build and Push
