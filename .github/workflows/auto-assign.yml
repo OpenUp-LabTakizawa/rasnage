@@ -19,12 +19,17 @@ jobs:
 
     steps:
       - name: Choose an Assignee
-        run: echo ASSIGNEE=$(shuf -e HaradaTakayuki kazutan1230 Marukome0743 tanePON -n 1) >> $GITHUB_ENV
+        id: assignee
+        run: echo ASSIGNEE=$(shuf -e HaradaTakayuki kazutan1230 Marukome0743 tanePON -n 1) >> $GITHUB_OUTPUT
 
       - name: Assign Issue
         if: github.event_name == 'issues' && toJSON(github.event.issue.assignees) == '[]'
-        run: gh issue edit ${{ github.event.issue.number }} --add-assignee ${{ env.ASSIGNEE }} --repo ${{ github.repository }}
+        env:
+          ASSIGNEE: ${{ steps.assignee.outputs.ASSIGNEE }}
+        run: gh issue edit ${{ github.event.issue.number }} --add-assignee $ASSIGNEE --repo ${{ github.repository }}
 
       - name: Assign Pull Request
         if: github.event_name == 'pull_request_target' && toJSON(github.event.pull_request.assignees) == '[]'
-        run: gh pr edit ${{ github.event.pull_request.number }} --add-assignee ${{ env.ASSIGNEE }} --repo ${{ github.repository }}
+        env:
+          ASSIGNEE: ${{ steps.assignee.outputs.ASSIGNEE }}
+        run: gh pr edit ${{ github.event.pull_request.number }} --add-assignee $ASSIGNEE --repo ${{ github.repository }}
