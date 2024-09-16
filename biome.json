@@ -11,7 +11,10 @@
   },
   "linter": {
     "rules": {
-      "all": true
+      "all": true,
+      "suspicious": {
+        "noReactSpecificProps": "off"
+      }
     }
   },
   "formatter": {
@@ -24,18 +27,6 @@
     "formatter": {
       "semicolons": "asNeeded",
       "indentStyle": "space"
-    }
-  },
-  "css": {
-    "parser": {
-      "cssModules": true
-    },
-    "formatter": {
-      "enabled": true,
-      "indentStyle": "space"
-    },
-    "linter": {
-      "enabled": true
     }
   },
   "json": {
