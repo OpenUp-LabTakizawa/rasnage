@@ -12,7 +12,7 @@ COPY . .
 RUN bun test
 RUN bun run build
 
-FROM node:22
+FROM oven/bun:distroless
 WORKDIR /app
 COPY --from=public.ecr.aws/awsguru/aws-lambda-adapter:0.8.4 /lambda-adapter /opt/extensions/lambda-adapter
 
@@ -21,4 +21,4 @@ COPY --from=builder /usr/src/app/.next/static ./.next/static
 
 EXPOSE 3000
 ENV AWS_LWA_ENABLE_COMPRESSION=true AWS_LWA_INVOKE_MODE=response_stream HOSTNAME=0.0.0.0 PORT=3000
-ENTRYPOINT ["/nodejs/bin/node", "server.js"]
+ENTRYPOINT ["/usr/local/bin/bun", "server.js"]
