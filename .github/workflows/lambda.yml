@@ -56,7 +56,7 @@ jobs:
       uses: docker/build-push-action@v6
       with:
         context: .
-        platforms: linux/arm64
+        platforms: linux/amd64
         push: true
         tags: ${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_REPOSITORY }}:${{ github.sha }}
         cache-from: type=gha
@@ -69,7 +69,7 @@ jobs:
         IMAGE_TAG: ${{ github.sha }}
       run: |
         aws lambda update-function-code --function-name $LAMBDA_FUNCTION_NAME \
-        --architectures arm64 --image-uri $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+        --image-uri $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
 
     - name: Delete an old Image
       env:
