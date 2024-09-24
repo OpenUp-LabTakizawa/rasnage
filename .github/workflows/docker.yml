@@ -79,6 +79,7 @@ jobs:
           images: |
             name=${{ env.REPOSITORY }}
             name=${{ env.GHCR_REGISTRY }}/${{ env.GHCR_REPOSITORY }},enable=${{ fromJSON(env.IS_PUSH) }}
+          labels: org.opencontainers.image.revision=${{ env.SHA }}
           tags: |
             type=ref,event=tag
             type=ref,event=pr,prefix=pr-
@@ -115,5 +116,5 @@ jobs:
         with:
           command: compare,cves,recommendations
           image: ${{ steps.meta.outputs.tags }}
-          to: ${{ env.GHCR_REGISTRY }}/${{ env.GHCR_REPOSITORY }}:canary
+          to: ${{ env.REPOSITORY }}:canary
           only-severities: critical,high
