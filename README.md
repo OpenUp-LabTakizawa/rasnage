@@ -105,7 +105,6 @@ This software uses the following open source packages:
 - [AWS Lambda Web Adapter](https://github.com/awslabs/aws-lambda-web-adapter)
 - [Biome](https://biomejs.dev/)
 - [Bun](https://bun.sh/)
-- [daisyUI](https://daisyui.com/)
 - [HAPPY DOM](https://github.com/capricorn86/happy-dom)
 - [Next.js](https://nextjs.org/)
 - [Node.js](https://nodejs.org/)
