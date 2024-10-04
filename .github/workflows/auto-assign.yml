@@ -5,7 +5,7 @@ on:
     types:
       - opened
       - reopened
-  pull_request_target:
+  pull_request:
     types:
       - opened
       - reopened
@@ -13,6 +13,7 @@ on:
 permissions:
   issues: write
   pull-requests: write
+  repository-projects: read
 
 env:
   GH_TOKEN: ${{ github.token }}
@@ -33,7 +34,7 @@ jobs:
         run: gh issue edit ${{ github.event.issue.number }} --add-assignee $ASSIGNEE --repo ${{ github.repository }}
 
       - name: Assign Pull Request
-        if: github.event_name == 'pull_request_target' && toJSON(github.event.pull_request.assignees) == '[]'
+        if: github.event_name == 'pull_request' && toJSON(github.event.pull_request.assignees) == '[]'
         env:
           ASSIGNEE: ${{ steps.assignee.outputs.ASSIGNEE }}
         run: gh pr edit ${{ github.event.pull_request.number }} --add-assignee $ASSIGNEE --repo ${{ github.repository }}
