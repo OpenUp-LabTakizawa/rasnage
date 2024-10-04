@@ -5,9 +5,13 @@ concurrency:
   cancel-in-progress: true
 
 on:
-  push:
   pull_request:
+  push:
+    branches: main
   workflow_dispatch:
+
+permissions:
+  contents: read
 
 jobs:
   quality:
