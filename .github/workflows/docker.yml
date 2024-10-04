@@ -44,7 +44,7 @@ env:
   GHCR_REGISTRY: ghcr.io
   GHCR_REPOSITORY: openup-labtakizawa/rasnage
   SHA: ${{ github.event.pull_request.head.sha || github.event.after }}
-  IS_PUSH: ${{ github.ref_type == 'tag' || inputs.push || github.event_name == 'push' && github.repository_owner == 'openup-labtakizawa' && github.ref_name == 'main' }}
+  IS_PUSH: ${{ inputs.push || github.event_name == 'push' || github.ref_type == 'tag'}}
 
 jobs:
   build:
