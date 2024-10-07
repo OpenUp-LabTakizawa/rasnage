@@ -50,17 +50,24 @@ jobs:
 
       - name: Test app
         id: test
-        run: bun test || echo "status=$?" >> $GITHUB_OUTPUT
+        run: |
+          echo "result=$(bun test)" >> $GITHUB_OUTPUT
+          bun test || echo "status=$?" >> $GITHUB_OUTPUT
 
       - name: Create PR comment
-        if: github.event_name == 'pull_request_target' && steps.test.outputs.status != 0
+        if: github.event_name == 'pull_request_target' && steps.test.outputs.status == 1
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           cat <<EOF > comment.md
           # 🚨 Test Failed
           @${{ github.actor }}, your commit ${{ github.event.pull_request.head.sha }} failed the test.
-          https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
-          <!-- generated-comment [Bun CI](${{ github.workflow_ref }}) -->"
+          ${{ steps.test.outputs.result }}
+          [View Test Log](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})
+          <!-- generated-comment [Bun CI](${{ github.workflow_ref }}) -->
           EOF
-          gh pr comment ${{ github.event.pull_request.number }} --body-file comment.md
+          gh pr comment ${{ github.event.pull_request.number }} --body-file comment.md --repo ${{ github.repository }}
+
+      - name: Fail if test failed
+        if: ${{ steps.test.outputs.status == 1 }}
+        run: exit 1
