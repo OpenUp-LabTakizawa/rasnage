@@ -63,13 +63,11 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          cat <<EOF > comment.md
+          cat << EOF > comment.md
           # 🚨Test Failed
           @${{ github.actor }}, your commit ${{ github.event.pull_request.head.sha }} failed the test.
 
-          ```bash
           ${{ steps.test.outputs.result }}
-          ```
 
           [View Test Log](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})
           <!-- generated-comment [Bun CI](${{ github.workflow_ref }}) -->
