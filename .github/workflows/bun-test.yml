@@ -57,9 +57,9 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh pr comment ${{ github.event.pull_request.number }} --body \
+          echo \
           "# 🚨 Test Failed/n\
           @${{ github.actor }}, your commit ${{ github.event.pull_request.head.sha }} failed the test./n\
-          ${{ steps.test.outputs.stdout }}/n\
-          <!-- generated-comment [Bun CI](${{ github.workflow }}) -->"
-
+          https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}/n\
+          <!-- generated-comment [Bun CI](${{ github.workflow_ref }}) -->" |
+          gh pr comment ${{ github.event.pull_request.number }} --body-file -
