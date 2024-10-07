@@ -53,7 +53,7 @@ jobs:
         run: |
           bun test &> >(tee -p test.log) || echo "status=$?" >> $GITHUB_OUTPUT
           {
-            echo `result<<EOF`
+            echo 'result<<EOF'
             cat test.log
             echo EOF
           } >> "$GITHUB_OUTPUT"
@@ -66,7 +66,11 @@ jobs:
           cat <<EOF > comment.md
           # 🚨Test Failed
           @${{ github.actor }}, your commit ${{ github.event.pull_request.head.sha }} failed the test.
+
+          ```bash
           ${{ steps.test.outputs.result }}
+          ```
+
           [View Test Log](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})
           <!-- generated-comment [Bun CI](${{ github.workflow_ref }}) -->
           EOF
