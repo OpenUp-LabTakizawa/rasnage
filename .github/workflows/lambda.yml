@@ -17,6 +17,10 @@ on:
       - "*config.*"
   workflow_dispatch:
 
+permissions:
+  contents: read
+  id-token: write
+
 env:
   AWS_REGION: ap-northeast-1
   ECR_REPOSITORY: rasnage
