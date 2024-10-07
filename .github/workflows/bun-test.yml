@@ -51,9 +51,8 @@ jobs:
       - name: Test app
         id: test
         run: |
-          bun test &> >(tee -p test.log)
+          bun test &> >(tee -p test.log) || echo "status=$?" >> $GITHUB_OUTPUT
           echo "result=$(<test.log)" >> $GITHUB_OUTPUT
-          echo "status=$?" >> $GITHUB_OUTPUT
 
       - name: Create PR comment
         if: github.event_name == 'pull_request_target' && steps.test.outputs.status == 1
