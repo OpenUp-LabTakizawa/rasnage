@@ -5,7 +5,7 @@ concurrency:
   cancel-in-progress: true
 
 on:
-  pull_request:
+  pull_request_target:
     paths:
       - "app/**"
       - "public/**"
@@ -25,6 +25,9 @@ on:
       - "*config.*"
   workflow_dispatch:
 
+permissions:
+  pull-requests: write
+
 jobs:
   test:
     runs-on: ubuntu-24.04
@@ -42,4 +45,17 @@ jobs:
         run: bun i
 
       - name: Test app
-        run: bun test
+        id: test
+        run: bun test || echo "status=$?" >> $GITHUB_OUTPUT
+
+      - name: Create PR comment
+        if: steps.test.outputs.status != 0
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh pr comment ${{ github.event.pull_request.number }} --body \
+          "# 🚨 Test Failed/n\
+          @${{ github.actor }}, your commit ${{ github.event.pull_request.head.sha }} failed the test./n\
+          ${{ steps.test.outputs.stdout }}/n\
+          <!-- generated-comment [Bun CI](${{ github.workflow }}) -->"
+
