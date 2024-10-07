@@ -51,8 +51,9 @@ jobs:
       - name: Test app
         id: test
         run: |
-          echo "result=$(bun test)" >> $GITHUB_OUTPUT
-          bun test || echo "status=$?" >> $GITHUB_OUTPUT
+          bun test &> >(tee -p test.log)
+          echo "result=$(<test.log)" >> $GITHUB_OUTPUT
+          echo "status=$?" >> $GITHUB_OUTPUT
 
       - name: Create PR comment
         if: github.event_name == 'pull_request_target' && steps.test.outputs.status == 1
@@ -60,7 +61,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           cat <<EOF > comment.md
-          # 🚨 Test Failed
+          # 🚨Test Failed
           @${{ github.actor }}, your commit ${{ github.event.pull_request.head.sha }} failed the test.
           ${{ steps.test.outputs.result }}
           [View Test Log](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})
