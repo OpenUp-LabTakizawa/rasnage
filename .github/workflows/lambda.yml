@@ -16,6 +16,12 @@ on:
       - "package.json"
       - "*config.*"
   workflow_dispatch:
+    inputs:
+      no-cache:
+        description: "Build docker images with no cache"
+        default: false
+        required: false
+        type: boolean
 
 permissions:
   contents: read
@@ -29,6 +35,7 @@ env:
 jobs:
   lambda:
     runs-on: ubuntu-24.04
+    timeout-minutes: 30
     if: github.repository_owner == 'openup-labtakizawa'
 
     steps:
@@ -53,7 +60,7 @@ jobs:
       uses: aws-actions/amazon-ecr-login@v2
 
     - name: Get an old ImageTag
-      id: get-old-image-tag
+      id: old-image-tag
       run: |
         echo "OLD_IMAGE_TAG=$(aws ecr list-images --repository-name $ECR_REPOSITORY \
         --query 'imageIds[0].imageTag' --output text)" >> $GITHUB_OUTPUT
@@ -61,13 +68,14 @@ jobs:
     - name: Build and Push
       uses: docker/build-push-action@v6
       with:
-        context: .
-        platforms: linux/arm64
-        push: true
-        tags: ${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_REPOSITORY }}:${{ github.sha }}
         cache-from: type=gha
         cache-to: type=gha,mode=max
+        context: .
+        no-cache: ${{ inputs.no-cache == true }}
+        platforms: linux/arm64
         provenance: false
+        push: true
+        tags: ${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_REPOSITORY }}:${{ github.sha }}
 
     - name: Update Lambda Function
       env:
@@ -79,7 +87,7 @@ jobs:
 
     - name: Delete an old Image
       env:
-        OLD_IMAGE_TAG: ${{ steps.get-old-image-tag.outputs.OLD_IMAGE_TAG }}
+        OLD_IMAGE_TAG: ${{ steps.old-image-tag.outputs.OLD_IMAGE_TAG }}
       run: |
         aws ecr batch-delete-image --repository-name $ECR_REPOSITORY \
         --image-ids imageTag=$OLD_IMAGE_TAG
