@@ -67,7 +67,7 @@ jobs:
           # 🚨Test Failed
           @${{ github.actor }}, your commit ${{ github.event.pull_request.head.sha }} failed the test.
 
-          ```shell
+          ```
           ${{ steps.test.outputs.result }}
           ```
 
