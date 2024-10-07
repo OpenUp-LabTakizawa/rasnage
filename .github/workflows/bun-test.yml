@@ -35,6 +35,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          ref: ${{ env.SHA }}
+        env:
+          SHA: ${{ github.event.pull_request.head.sha || github.sha }}
 
       - name: Install bun
         uses: oven-sh/setup-bun@v2
@@ -49,7 +53,7 @@ jobs:
         run: bun test || echo "status=$?" >> $GITHUB_OUTPUT
 
       - name: Create PR comment
-        if: steps.test.outputs.status != 0
+        if: github.event_name == 'pull_request_target' && steps.test.outputs.status != 0
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
