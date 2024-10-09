@@ -10,7 +10,7 @@
     "lint": "bunx biome check --write"
   },
   "dependencies": {
-    "next": "canary",
+    "next": "15.0.0-canary.179",
     "react": "canary",
     "react-dom": "canary"
   },
@@ -19,7 +19,7 @@
     "@happy-dom/global-registrator": "^15.7.4",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/react": "^16.0.1",
-    "@types/bun": "^1.1.10",
+    "@types/bun": "^1.1.11",
     "@types/react": "^18.3.11",
     "@types/react-dom": "^18.3.0",
     "postcss": "^8.4.47",
