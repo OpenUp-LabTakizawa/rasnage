@@ -69,14 +69,14 @@ jobs:
           WORKFLOW_REF: ${{ github.workflow_ref }}
         run: |
           cat << EOF > comment.md
-          # 🚨Test Failed
-          @ACTOR, your commit $SHA failed the test.
+          # ❌Test Failed
+          @$ACTOR, your commit $SHA failed the test.
 
           \`\`\`shell
           $RESULT
           \`\`\`
 
-          [View Test Log](https://github.com/$REPO/actions/runs/$RUN_ID)
+          👀[View Test Log](https://github.com/$REPO/actions/runs/$RUN_ID)
           <!-- generated-comment [Bun CI]($WORKFLOW_REF) -->
           EOF
           gh pr comment $PR_NUMBER --body-file comment.md --repo $REPO
