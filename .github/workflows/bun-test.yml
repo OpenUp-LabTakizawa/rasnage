@@ -49,33 +49,38 @@ jobs:
         run: bun i
 
       - name: Test app
-        id: test
         run: |
-          bun test &> >(tee -p test.log) || echo "status=$?" >> $GITHUB_OUTPUT
+          bun test &> >(tee -p test.log) || echo 'STATUS=$?' >> $GITHUB_ENV
           {
-            echo 'result<<EOF'
+            echo 'RESULT<<EOF'
             cat test.log
             echo EOF
-          } >> "$GITHUB_OUTPUT"
+          } >> $GITHUB_ENV
 
       - name: Create PR comment
-        if: github.event_name == 'pull_request_target' && steps.test.outputs.status == 1
+        if: github.event_name == 'pull_request_target' && env.STATUS == 1
         env:
+          ACTOR: ${{ github.actor }}
           GH_TOKEN: ${{ github.token }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          REPO: ${{ github.repository }}
+          RUN_ID: ${{ github.run_id }}
+          SHA: ${{ github.event.pull_request.head.sha }}
+          WORKFLOW_REF: ${{ github.workflow_ref }}
         run: |
           cat << EOF > comment.md
           # 🚨Test Failed
-          @${{ github.actor }}, your commit ${{ github.event.pull_request.head.sha }} failed the test.
+          @ACTOR, your commit $SHA failed the test.
 
           \`\`\`shell
-          ${{ steps.test.outputs.result }}
+          $RESULT
           \`\`\`
 
-          [View Test Log](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})
-          <!-- generated-comment [Bun CI](${{ github.workflow_ref }}) -->
+          [View Test Log](https://github.com/$REPO/actions/runs/$RUN_ID)
+          <!-- generated-comment [Bun CI]($WORKFLOW_REF) -->
           EOF
-          gh pr comment ${{ github.event.pull_request.number }} --body-file comment.md --repo ${{ github.repository }}
+          gh pr comment $PR_NUMBER --body-file comment.md --repo $REPO
 
       - name: Fail if test failed
-        if: ${{ steps.test.outputs.status == 1 }}
+        if: env.STATUS == 1
         run: exit 1
