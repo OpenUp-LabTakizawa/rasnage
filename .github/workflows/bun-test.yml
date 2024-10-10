@@ -50,7 +50,7 @@ jobs:
 
       - name: Test app
         run: |
-          bun test &> >(tee -p test.log) || echo 'STATUS=$?' >> $GITHUB_ENV
+          bun test &> >(tee -p test.log) || echo STATUS=$? >> $GITHUB_ENV
           {
             echo 'RESULT<<EOF'
             cat test.log
