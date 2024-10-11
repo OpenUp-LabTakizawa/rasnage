@@ -26,6 +26,7 @@ on:
   workflow_dispatch:
 
 permissions:
+  contents: read
   pull-requests: write
 
 jobs:
@@ -117,14 +118,14 @@ jobs:
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 comment_id: testComment.id,
-                body: "# ❌Test Failed\n@${ACTOR}, your commit ${SHA} failed the test.\n\n```shell\n${RESULT}\n```"
+                body: '# ❌Test Failed\n@${ACTOR}, your commit ${SHA} failed the test.\n\n```shell\n${RESULT}\n```'
               })
             } else {
               github.rest.issues.createComment({
                 issue_number: context.issue.number,
                 owner: context.repo.owner,
                 repo: context.repo.repo,
-                body: "# ❌Test Failed\n@${ACTOR}, your commit ${SHA} failed the test.\n\n```shell\n${RESULT}\n```"
+                body: '# ❌Test Failed\n@${ACTOR}, your commit ${SHA} failed the test.\n\n```shell\n${RESULT}\n```'
               })
             }
 
