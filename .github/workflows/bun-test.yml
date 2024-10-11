@@ -25,9 +25,6 @@ on:
       - "*config.*"
   workflow_dispatch:
 
-permissions:
-  pull-requests: write
-
 jobs:
   test:
     runs-on: ubuntu-24.04
@@ -101,15 +98,15 @@ jobs:
               repo: context.repo.repo,
               issue_number: context.issue.number,
             })
-            const body = '# ❌Test Failed
-            @${ACTOR}, your commit ${SHA} failed the test.
+            # const body = '# ❌Test Failed
+            # @${ACTOR}, your commit ${SHA} failed the test.
 
-            \`\`\`shell
-            ${RESULT}
-            \`\`\`
+            # \`\`\`shell
+            # ${RESULT}
+            # \`\`\`
 
-            👀[View Test Log](https://github.com/${REPO}/actions/runs/${RUN_ID})
-            <!-- generated-comment [Bun CI](${WORKFLOW_REF}) -->'
+            # 👀[View Test Log](https://github.com/${REPO}/actions/runs/${RUN_ID})
+            # <!-- generated-comment [Bun CI](${WORKFLOW_REF}) -->'
             const testComment = comments.find(comment => {
               return comment.user.type === 'Bot' && comment.body.includes('# ❌Test Failed')
             })
@@ -118,14 +115,14 @@ jobs:
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 comment_id: testComment.id,
-                body: body
+                body: "# ❌Test Failed\n@${ACTOR}, your commit ${SHA} failed the test.\n\n```shell\n${RESULT}\n```"
               })
             } else {
               github.rest.issues.createComment({
                 issue_number: context.issue.number,
                 owner: context.repo.owner,
                 repo: context.repo.repo,
-                body: body
+                body: "# ❌Test Failed\n@${ACTOR}, your commit ${SHA} failed the test.\n\n```shell\n${RESULT}\n```"
               })
             }
 
