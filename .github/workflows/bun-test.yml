@@ -73,13 +73,13 @@ jobs:
             echo '# ❌Test Failed'
             echo "@$ACTOR, your commit $SHA failed the test.\n"
             echo '<details>'
-            echo '<summary>Test Log</summary>'
+            echo "<summary>Show Test Log</summary>\n"
             echo "\`\`\`shell"
             echo "$RESULT"
             echo "\`\`\`"
-            echo "</details>\n"
-            echo '👀[View in Actions](https://github.com/$REPO/actions/runs/$RUN_ID)'
-            echo '<!-- generated-comment [Bun CI]($WORKFLOW_REF) -->'
+            echo '</details>'
+            echo "\n👀[View in Actions](https://github.com/$REPO/actions/runs/$RUN_ID)"
+            echo "<!-- generated-comment [Bun CI]($WORKFLOW_REF) -->""
             echo 'EOF'
           } >> $GITHUB_ENV
 
