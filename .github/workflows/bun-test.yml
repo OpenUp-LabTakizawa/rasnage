@@ -104,7 +104,7 @@ jobs:
                 \`\`\`
 
                 👀[View Test Log](https://github.com/$REPO/actions/runs/$RUN_ID)
-                <!-- generated-comment [Bun CI]($WORKFLOW_REF) -->
+                <!-- generated-comment [Bun CI]($WORKFLOW_REF) -->`
             })
 
       - name: Fail if test failed
