@@ -79,7 +79,7 @@ jobs:
           👀[View Test Log](https://github.com/$REPO/actions/runs/$RUN_ID)
           <!-- generated-comment [Bun CI]($WORKFLOW_REF) -->
           EOF
-          echo "TEST_COMMENT=$(cat comment.md)" >> $GITHUB_ENV
+          echo 'TEST_COMMENT=$(cat comment.md)' >> $GITHUB_ENV
 
       - name: Update or Add a test comment
         if: github.event_name == 'pull_request_target' && env.STATUS == 1
