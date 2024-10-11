@@ -70,15 +70,15 @@ jobs:
         run: |
           {
             echo 'TEST_COMMENT<<EOF'
-            echo # ❌Test Failed
-            echo @$ACTOR, your commit $SHA failed the test.
+            echo '# ❌Test Failed'
+            echo '@$ACTOR, your commit $SHA failed the test.'
 
             echo '\`\`\`shell'
-            echo $RESULT
-            echo '\`\`\'
+            echo '$RESULT'
+            echo '\`\`\`'
 
-            echo 👀[View Test Log](https://github.com/$REPO/actions/runs/$RUN_ID)
-            echo <!-- generated-comment [Bun CI]($WORKFLOW_REF) -->
+            echo '👀[View Test Log](https://github.com/$REPO/actions/runs/$RUN_ID)'
+            echo '<!-- generated-comment [Bun CI]($WORKFLOW_REF) -->'
             echo 'EOF'
           } >> $GITHUB_ENV
 
@@ -94,7 +94,7 @@ jobs:
               issue_number: context.issue.number,
             })
             const testComment = comments.find(comment => {
-              return comment.user.type === 'Bot' && comment.body.includes("# ❌Test Failed")
+              return comment.user.type === 'Bot' && comment.body.includes('# ❌Test Failed')
             })
             if (testComment) {
               github.rest.issues.updateComment({
