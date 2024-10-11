@@ -109,24 +109,24 @@ jobs:
 
             # 👀[View Test Log](https://github.com/${REPO}/actions/runs/${RUN_ID})
             # <!-- generated-comment [Bun CI](${WORKFLOW_REF}) -->'
-            const testComment = comments.find(comment => {
-              return comment.user.type === 'Bot' && comment.body.includes('# ❌Test Failed')
-            })
-            if (testComment) {
-              github.rest.issues.updateComment({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                comment_id: testComment.id,
-                body: "# ❌Test Failed\n@${ACTOR}, your commit ${SHA} failed the test.\n\n```shell\n${RESULT}\n```"
-              })
-            } else {
-              github.rest.issues.createComment({
-                issue_number: context.issue.number,
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                body: "# ❌Test Failed\n@${ACTOR}, your commit ${SHA} failed the test.\n\n```shell\n${RESULT}\n```"
-              })
-            }
+            # const testComment = comments.find(comment => {
+            #   return comment.user.type === 'Bot' && comment.body.includes('# ❌Test Failed')
+            # })
+            # if (testComment) {
+            #   github.rest.issues.updateComment({
+            #     owner: context.repo.owner,
+            #     repo: context.repo.repo,
+            #     comment_id: testComment.id,
+            #     body: "# ❌Test Failed\n@${ACTOR}, your commit ${SHA} failed the test.\n\n```shell\n${RESULT}\n```"
+            #   })
+            # } else {
+            #   github.rest.issues.createComment({
+            #     issue_number: context.issue.number,
+            #     owner: context.repo.owner,
+            #     repo: context.repo.repo,
+            #     body: "# ❌Test Failed\n@${ACTOR}, your commit ${SHA} failed the test.\n\n```shell\n${RESULT}\n```"
+            #   })
+            # }
 
       # - name: Create PR comment
       #   if: github.event_name == 'pull_request_target' && env.STATUS == 1
