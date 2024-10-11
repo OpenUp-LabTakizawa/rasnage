@@ -80,6 +80,7 @@ jobs:
             echo "\`\`\`"
             echo ''
             echo '</details>'
+            echo ''
             echo "👀[View in Actions](https://github.com/$REPO/actions/runs/$RUN_ID)"
             echo "<!-- generated-comment [Bun CI]($WORKFLOW_REF) -->"
             echo 'EOF'
