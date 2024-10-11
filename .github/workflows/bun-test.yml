@@ -70,14 +70,14 @@ jobs:
         run: |
           {
             echo 'TEST_COMMENT<<EOF'
-            echo # ❌Test Failed
-            echo @$ACTOR, your commit $SHA failed the test.\n
-            echo \`\`\`shell
-            echo $RESULT
-            echo \`\`\`\n
-            echo 👀[View Test Log](https://github.com/$REPO/actions/runs/$RUN_ID)
-            echo <!-- generated-comment [Bun CI]($WORKFLOW_REF) -->
-            echo EOF
+            echo '# ❌Test Failed'
+            echo "@$ACTOR, your commit $SHA failed the test.\n"
+            echo "\`\`\`shell"
+            echo "$RESULT"
+            echo "\`\`\`\n"
+            echo '👀[View Test Log](https://github.com/$REPO/actions/runs/$RUN_ID)'
+            echo '<!-- generated-comment [Bun CI]($WORKFLOW_REF) -->'
+            echo 'EOF'
           } >> $GITHUB_ENV
 
       - name: Update or Add a test comment
