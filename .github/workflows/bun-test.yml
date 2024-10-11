@@ -101,14 +101,14 @@ jobs:
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 comment_id: testComment.id,
-                body: ${TEST_COMMENT}
+                body: ${{ env.TEST_COMMENT }}
               })
             } else {
               github.rest.issues.createComment({
                 issue_number: context.issue.number,
                 owner: context.repo.owner,
                 repo: context.repo.repo,
-                body: ${TEST_COMMENT}
+                body: ${{ env.TEST_COMMENT }}
               })
             }
 
