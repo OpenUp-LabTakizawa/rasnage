@@ -79,7 +79,7 @@ jobs:
 
             echo 👀[View Test Log](https://github.com/$REPO/actions/runs/$RUN_ID)
             echo <!-- generated-comment [Bun CI]($WORKFLOW_REF) -->
-            echo EOF
+            echo 'EOF'
           } >> $GITHUB_ENV
 
       - name: Update or Add a test comment
