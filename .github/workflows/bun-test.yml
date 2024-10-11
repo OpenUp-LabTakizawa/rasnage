@@ -68,18 +68,19 @@ jobs:
           SHA: ${{ github.event.pull_request.head.sha }}
           WORKFLOW_REF: ${{ github.workflow_ref }}
         run: |
-          cat << EOF > comment.md
-          # ❌Test Failed
-          @$ACTOR, your commit $SHA failed the test.
+          {
+            echo 'TEST_COMMENT<<EOF'
+            echo # ❌Test Failed
+            echo @$ACTOR, your commit $SHA failed the test.
 
-          \`\`\`shell
-          $RESULT
-          \`\`\`
+            echo '\`\`\`shell'
+            echo $RESULT
+            echo '\`\`\'
 
-          👀[View Test Log](https://github.com/$REPO/actions/runs/$RUN_ID)
-          <!-- generated-comment [Bun CI]($WORKFLOW_REF) -->
-          EOF
-          echo 'TEST_COMMENT=$(cat comment.md)' >> $GITHUB_ENV
+            echo 👀[View Test Log](https://github.com/$REPO/actions/runs/$RUN_ID)
+            echo <!-- generated-comment [Bun CI]($WORKFLOW_REF) -->
+            echo 'EOF'
+          } >> $GITHUB_ENV
 
       - name: Update or Add a test comment
         if: github.event_name == 'pull_request_target' && env.STATUS == 1
