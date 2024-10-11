@@ -95,11 +95,11 @@ jobs:
         with:
           script: |
             const { ACTOR, PR_NUMBER, REPO, RUN_ID, SHA, WORKFLOW_REF } = process.env
-            const { data: comments } = await github.rest.issues.listComments({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number: context.issue.number,
-            })
+            # const { data: comments } = await github.rest.issues.listComments({
+            #   owner: context.repo.owner,
+            #   repo: context.repo.repo,
+            #   issue_number: context.issue.number,
+            # })
             # const body = '# ❌Test Failed
             # @${ACTOR}, your commit ${SHA} failed the test.
 
@@ -109,24 +109,24 @@ jobs:
 
             # 👀[View Test Log](https://github.com/${REPO}/actions/runs/${RUN_ID})
             # <!-- generated-comment [Bun CI](${WORKFLOW_REF}) -->'
-            # const testComment = comments.find(comment => {
-            #   return comment.user.type === 'Bot' && comment.body.includes('# ❌Test Failed')
-            # })
-            # if (testComment) {
-            #   github.rest.issues.updateComment({
-            #     owner: context.repo.owner,
-            #     repo: context.repo.repo,
-            #     comment_id: testComment.id,
-            #     body: "# ❌Test Failed\n@${ACTOR}, your commit ${SHA} failed the test.\n\n```shell\n${RESULT}\n```"
-            #   })
-            # } else {
-            #   github.rest.issues.createComment({
-            #     issue_number: context.issue.number,
-            #     owner: context.repo.owner,
-            #     repo: context.repo.repo,
-            #     body: "# ❌Test Failed\n@${ACTOR}, your commit ${SHA} failed the test.\n\n```shell\n${RESULT}\n```"
-            #   })
-            # }
+            const testComment = comments.find(comment => {
+              return comment.user.type === 'Bot' && comment.body.includes('# ❌Test Failed')
+            })
+            if (testComment) {
+              github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: testComment.id,
+                body: "# ❌Test Failed\n@${ACTOR}, your commit ${SHA} failed the test.\n\n```shell\n${RESULT}\n```"
+              })
+            } else {
+              github.rest.issues.createComment({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: "# ❌Test Failed\n@${ACTOR}, your commit ${SHA} failed the test.\n\n```shell\n${RESULT}\n```"
+              })
+            }
 
       # - name: Create PR comment
       #   if: github.event_name == 'pull_request_target' && env.STATUS == 1
