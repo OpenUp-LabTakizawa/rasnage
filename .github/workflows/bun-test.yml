@@ -25,6 +25,9 @@ on:
       - "*config.*"
   workflow_dispatch:
 
+permissions:
+  pull-requests: write
+
 jobs:
   test:
     runs-on: ubuntu-24.04
@@ -90,7 +93,6 @@ jobs:
           SHA: ${{ github.event.pull_request.head.sha }}
           WORKFLOW_REF: ${{ github.workflow_ref }}
         with:
-          github-token: ${{ github.token }}
           script: |
             const { ACTOR, PR_NUMBER, REPO, RUN_ID, SHA, WORKFLOW_REF } = process.env
             const { data: comments } = await github.rest.issues.listComments({
