@@ -24,6 +24,9 @@ on:
       - "Dockerfile"
       - "package.json"
       - "*config.*"
+  release:
+    types:
+      - published
   workflow_dispatch:
     inputs:
       no-cache:
