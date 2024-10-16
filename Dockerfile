@@ -1,13 +1,10 @@
 # syntax=docker.io/docker/dockerfile-upstream:1.11.0-rc1-labs
-FROM oven/bun:canary AS base
+FROM oven/bun:canary AS builder
 WORKDIR /usr/src/app
-
-FROM base AS deps
-COPY package.json bun.lockb ./
-RUN bun i --frozen-lockfile
-
-FROM base AS builder
-COPY --from=deps /usr/src/app/node_modules ./node_modules
+RUN --mount=type=bind,source=package.json,target=package.json \
+  --mount=type=bind,source=bun.lockb,target=bun.lockb \
+  --mount=type=cache,target=/root/.bun \
+  bun i --frozen-lockfile
 COPY . .
 RUN bun test
 RUN bun run build
