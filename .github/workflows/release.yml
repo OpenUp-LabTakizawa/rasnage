@@ -26,4 +26,5 @@ jobs:
         if: ${{ env.VERSION != '' }}
         run: gh release create $VERSION --generate-notes -t "$REPO_NAME $VERSION"
         env:
+          GH_TOKEN: ${{ github.token }}
           REPO_NAME: ${{ github.event.repository.name }}
