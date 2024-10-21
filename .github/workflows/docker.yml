@@ -24,6 +24,8 @@ on:
       - "Dockerfile"
       - "package.json"
       - "*config.*"
+    tags:
+      - "v*.*.*"
   release:
     types:
       - published
