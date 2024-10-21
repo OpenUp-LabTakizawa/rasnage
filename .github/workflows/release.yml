@@ -12,19 +12,9 @@ jobs:
     if: github.repository_owner == 'openup-labtakizawa'
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 2
-
-      - name: Check version diff on package.json
-        run: |
-          echo "VERSION=$(git diff HEAD^ HEAD package.json | grep '^+.\+version' | \
-          grep -oE '([0-9]+\.){1}[0-9]+(\.[0-9]+)?')" >> $GITHUB_ENV
-
       - name: Create release
-        if: ${{ env.VERSION != '' }}
-        run: gh release create v$VERSION --generate-notes -t "$REPO_NAME v$VERSION"
+        run: gh release create $VERSION --generate-notes -t "$REPO_NAME $VERSION"
         env:
           GH_TOKEN: ${{ github.token }}
           REPO_NAME: ${{ github.event.repository.name }}
+          VERSION: ${{ github.ref_name }}
