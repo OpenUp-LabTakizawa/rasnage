@@ -14,16 +14,16 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
 
       - name: Check version diff on package.json
-        run: echo "VERSION_DIFF=$(git diff origin/main HEAD --relative "./package.json" | grep "^+.\+version" | wc -l)" >> $GITHUB_ENV
-
-      - name: Get version from package.json
-        if: ${{ env.VERSION_DIFF > 0 }}
-        run: echo "VERSION=$(grep -oE '([0-9]+\.){1}[0-9]+(\.[0-9]+)?' package.json | head -n1)" >> $GITHUB_ENV
+        run: |
+          echo "VERSION=$(git diff HEAD^ HEAD package.json | grep '^+.\+version' | \
+          grep -oE '([0-9]+\.){1}[0-9]+(\.[0-9]+)?')" >> $GITHUB_ENV
 
       - name: Create release
-        if: ${{ env.VERSION_DIFF > 0 }}
+        if: ${{ env.VERSION != '' }}
         run: gh release create $VERSION --generate-notes -t "$REPO_NAME $VERSION"
         env:
           REPO_NAME: ${{ github.event.repository.name }}
