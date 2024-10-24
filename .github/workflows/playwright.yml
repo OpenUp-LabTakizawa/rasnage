@@ -5,10 +5,24 @@ concurrency:
   cancel-in-progress: true
 
 on:
-  push:
-    branches: main
   pull_request:
-    branches: main
+    paths:
+      - "app/**"
+      - "public/**"
+      - ".dockerignore"
+      - "bun.lockb"
+      - "Dockerfile"
+      - "package.json"
+      - "*config.*"
+  push:
+    paths:
+      - "app/**"
+      - "public/**"
+      - ".dockerignore"
+      - "bun.lockb"
+      - "Dockerfile"
+      - "package.json"
+      - "*config.*"
   workflow_dispatch:
 
 jobs:
