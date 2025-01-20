@@ -4,6 +4,8 @@ const nextConfig: NextConfig = {
   experimental: {
     inlineCss: true,
     reactCompiler: true,
+    streamingMetadata: true,
+    viewTransition: true,
   },
   output: "standalone",
 }
