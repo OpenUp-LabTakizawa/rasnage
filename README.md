@@ -21,30 +21,52 @@
 To clone and run this application, you'll need [Git](https://git-scm.com) and [Bun](https://bun.sh/) installed on your computer.  
 From your command line:
 
+### 1. Clone this repository
+
 ```bash
-# Clone this repository
-$ git clone https://github.com/OpenUp-LabTakizawa/rasnage
+git clone https://github.com/OpenUp-LabTakizawa/rasnage
+```
 
-# Install dependencies with bun
-$ cd rasnage && bun i
+### 2. Install dependencies with bun
 
-# Develop the app
-$ bun dev
+```bash
+cd rasnage && bun i
+```
 
-# Test the app
-$ bun test:app
+### 3. Develop the app
 
-# E2E Test
-$ bun test:e2e
+```bash
+bun dev
+```
 
-# Build the app
-$ bun run build
+### 4. Test the app
 
-# Start the app
-$ bun start
+```bash
+bun test:app
+```
 
-# Format and Lint the files
-$ bun lint
+### 5. E2E Test
+
+```bash
+bun test:e2e
+```
+
+### 6. Format and Lint the files
+
+```bash
+bun lint
+```
+
+### 7. Build the app
+
+```bash
+bun run build
+```
+
+### 8. Start the app
+
+```bash
+bun start
 ```
 
 ## 🆚 VSCode
