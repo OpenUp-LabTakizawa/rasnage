@@ -90,7 +90,7 @@ Follow these steps to open this project in a Codespace:
 2. Click on the **Codespaces** tab.  
 3. Click **Create codespace on main**.
 
-For more info, check out the [GitHub documentation](https://docs.github.com/en/free-pro-team@latest/github/developing-online-with-codespaces/creating-a-codespace#creating-a-codespace).
+For more info, check out the [GitHub documentation](https://docs.github.com/en/codespaces/developing-in-a-codespace/creating-a-codespace-for-a-repository#creating-a-codespace).
 
 </details>
 
@@ -141,5 +141,5 @@ This software uses the following open source packages:
 
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FOpenUp-LabTakizawa%2Frasnage.svg?type=large&issueType=license)](https://app.fossa.com/projects/git%2Bgithub.com%2FOpenUp-LabTakizawa%2Frasnage?ref=badge_large&issueType=license)
 
-The Apache License Version 2.0 (2023) - [OpenUp-LabTakizawa](https://github.com/OpenUp-LabTakizawa).  
+The Apache License Version 2.0 (2025) - [OpenUp-LabTakizawa](https://github.com/OpenUp-LabTakizawa).
 Please have a look at the [LICENSE](https://github.com/OpenUp-LabTakizawa/rasnage/blob/main/LICENSE) for more details.
