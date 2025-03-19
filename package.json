@@ -15,7 +15,8 @@
   "dependencies": {
     "next": "canary",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "@next/plugin-rspack": "canary"
   },
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",
