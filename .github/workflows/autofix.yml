@@ -32,5 +32,5 @@ jobs:
       - name: 🔷 Run Biome
         run: bun lint && bunx biome ci --reporter=github
 
-      - name: 💾 cCommit
+      - name: 💾 Commit
         uses: autofix-ci/action@v1.3.1
