@@ -55,12 +55,13 @@ jobs:
 
       - name: 🧪 Test app
         run: |
-          bun test:app &> >(tee -p test.log) || echo STATUS=$(echo $? | tr -d '\n') >> $GITHUB_ENV
+          bun test:app &> >(tee -p test.log) || STATUS=$(echo $? | grep -E '^[0-9]+$' || echo 1)
+          echo "STATUS=$STATUS" >> $GITHUB_ENV
           UUID=$(uuidgen)
           {
-            echo 'RESULT<<EOF$UUID'
+            echo "RESULT<<EOF$UUID"
             cat test.log
-            echo 'EOF$UUID'
+            echo "EOF$UUID"
           } >> $GITHUB_ENV
 
       - name: 💬 Create test comment
