@@ -6,7 +6,7 @@ render(<Home />)
 
 test("Image test", () => {
   const img = document.querySelectorAll("img")
-  expect(img[0]?.alt).toEqual("Next.js logo")
+  expect(img[0]?.alt).toEqual("Next.js ")
   expect(img[0]?.src).toEqual("/next.svg")
   expect(img[1]?.alt).toEqual("Vercel logomark")
   expect(img[1]?.src).toEqual("/vercel.svg")
