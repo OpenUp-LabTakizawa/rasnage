@@ -35,7 +35,7 @@ permissions:
 jobs:
   test:
     runs-on: ubuntu-latest
-    if: contains(github.event.pull_request.labels.*.name, '👍ci approved')
+    if: github.event_name == 'push' || contains(github.event.pull_request.labels.*.name, '👍ci approved')
 
     steps:
       - name: 📥 Checkout
